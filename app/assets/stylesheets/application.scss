@@ -1,0 +1,21 @@
+// Constitution Principle III: UX Consistency — Bootstrap 5 design system
+//
+// Bootstrap 5 via dartsass-sprockets
+@import "bootstrap";
+
+// Application-specific styles below
+body {
+  padding-top: 70px; // offset for fixed navbar
+}
+
+.card-flip-back {
+  display: none;
+}
+
+.flash-messages {
+  position: fixed;
+  top: 70px;
+  right: 1rem;
+  z-index: 1050;
+  min-width: 280px;
+}

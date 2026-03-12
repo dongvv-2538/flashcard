@@ -1,0 +1,73 @@
+<%# T027 — Deck show: stats + cards list + actions %>
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h1 class="h2"><%= @deck.name %></h1>
+  <div>
+    <%= link_to "Study Now", new_deck_study_session_path(@deck),
+                class: "btn btn-success me-2" %>
+    <%= link_to "Edit", edit_deck_path(@deck),
+                class: "btn btn-outline-secondary me-2" %>
+    <%= button_to "Delete", deck_path(@deck),
+                  method: :delete,
+                  class: "btn btn-outline-danger",
+                  data: { turbo_confirm: "Delete this deck and all its cards?" } %>
+  </div>
+</div>
+
+<% if @deck.description.present? %>
+  <p class="text-muted"><%= @deck.description %></p>
+<% end %>
+
+<%# Stats panel — wired with real data in Phase 6 %>
+<% if @stats %>
+  <%= render "decks/stats", stats: @stats %>
+<% else %>
+  <div class="row g-3 mb-4">
+    <div class="col-6 col-md-3">
+      <div class="card text-center bg-light">
+        <div class="card-body py-2">
+          <div class="fs-4 fw-bold"><%= @deck.cards.count %></div>
+          <div class="text-muted small">Total</div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h2 class="h5 mb-0">Cards (<%= @cards.count %>)</h2>
+  <%= link_to "＋ Add Card", new_deck_card_path(@deck), class: "btn btn-sm btn-primary" %>
+</div>
+
+<% if @cards.empty? %>
+  <p class="text-muted">No cards yet. Add some cards to start studying!</p>
+<% else %>
+  <div class="table-responsive">
+    <table class="table table-hover align-middle">
+      <thead class="table-light">
+        <tr>
+          <th>Front</th>
+          <th>Back</th>
+          <th class="text-end">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @cards.each do |card| %>
+          <tr>
+            <td><%= truncate(card.front, length: 80) %></td>
+            <td><%= truncate(card.back, length: 80) %></td>
+            <td class="text-end">
+              <%= link_to "Edit", edit_deck_card_path(@deck, card),
+                          class: "btn btn-sm btn-outline-secondary me-1" %>
+              <%= button_to "Delete", deck_card_path(@deck, card),
+                            method: :delete,
+                            class: "btn btn-sm btn-outline-danger",
+                            data: { turbo_confirm: "Delete this card?" } %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>
+
+<%= link_to "← Back to Decks", decks_path, class: "btn btn-link text-muted" %>

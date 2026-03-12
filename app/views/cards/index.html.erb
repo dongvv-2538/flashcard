@@ -1,0 +1,40 @@
+<%# T028 — Cards index: list with front/back preview, action buttons %>
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <div>
+    <h1 class="h3 mb-1">Cards in "<%= @deck.name %>"</h1>
+    <%= link_to "← Back to Deck", deck_path(@deck), class: "text-muted small" %>
+  </div>
+  <%= link_to "＋ Add Card", new_deck_card_path(@deck), class: "btn btn-primary" %>
+</div>
+
+<% if @cards.empty? %>
+  <p class="text-muted">No cards yet.</p>
+<% else %>
+  <div class="table-responsive">
+    <table class="table table-hover align-middle">
+      <thead class="table-light">
+        <tr>
+          <th>Front</th>
+          <th>Back</th>
+          <th class="text-end">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @cards.each do |card| %>
+          <tr>
+            <td><%= truncate(card.front, length: 80) %></td>
+            <td><%= truncate(card.back, length: 80) %></td>
+            <td class="text-end">
+              <%= link_to "Edit", edit_deck_card_path(@deck, card),
+                          class: "btn btn-sm btn-outline-secondary me-1" %>
+              <%= button_to "Delete", deck_card_path(@deck, card),
+                            method: :delete,
+                            class: "btn btn-sm btn-outline-danger",
+                            data: { turbo_confirm: "Delete this card?" } %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>

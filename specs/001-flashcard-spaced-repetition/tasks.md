@@ -18,11 +18,11 @@ implementation and testing of each story.
 
 **Purpose**: Rails application scaffolding, tooling, and base layout.
 
-- [ ] T001 Create new Rails 7.2 application with PostgreSQL (`rails new flashcard --database=postgresql`) and add gems to `Gemfile`: `rspec-rails`, `factory_bot_rails`, `capybara`, `simplecov`, `rubocop-rails`, `bootstrap`, `jquery-rails`
-- [ ] T002 [P] Configure RuboCop with `.rubocop.yml` at repo root: inherit `rubocop-rails`, enable `Metrics/CyclomaticComplexity` max 10, `Style/FrozenStringLiteralComment`
-- [ ] T003 [P] Configure RSpec: run `rails generate rspec:install`; add FactoryBot, Capybara, SimpleCov (≥80% minimum) includes to `spec/rails_helper.rb`
-- [ ] T004 [P] Configure Bootstrap 5 + jQuery in `app/javascript/application.js` and import Bootstrap CSS in `app/assets/stylesheets/application.scss`
-- [ ] T005 Create base application layout with Bootstrap navbar, flash messages, and yield in `app/views/layouts/application.html.erb`
+- [X] T001 Create new Rails 7.2 application with PostgreSQL (`rails new flashcard --database=postgresql`) and add gems to `Gemfile`: `rspec-rails`, `factory_bot_rails`, `capybara`, `simplecov`, `rubocop-rails`, `bootstrap`, `jquery-rails`
+- [X] T002 [P] Configure RuboCop with `.rubocop.yml` at repo root: inherit `rubocop-rails`, enable `Metrics/CyclomaticComplexity` max 10, `Style/FrozenStringLiteralComment`
+- [X] T003 [P] Configure RSpec: run `rails generate rspec:install`; add FactoryBot, Capybara, SimpleCov (≥80% minimum) includes to `spec/rails_helper.rb`
+- [X] T004 [P] Configure Bootstrap 5 + jQuery in `app/javascript/application.js` and import Bootstrap CSS in `app/assets/stylesheets/application.scss`
+- [X] T005 Create base application layout with Bootstrap navbar, flash messages, and yield in `app/views/layouts/application.html.erb`
 
 ---
 
@@ -37,20 +37,20 @@ require a logged-in user and scoped data — nothing can be built before this.
 
 > Write these tests FIRST; ensure they FAIL before implementation (TDD: Red → Green → Refactor)
 
-- [ ] T006 [P] Write system spec for full registration + login + logout flow in `spec/system/authentication_spec.rb` (Capybara)
-- [ ] T007 [P] Write model spec for User validations (username presence, uniqueness, password length) in `spec/models/user_spec.rb`
+- [X] T006 [P] Write system spec for full registration + login + logout flow in `spec/system/authentication_spec.rb` (Capybara)
+- [X] T007 [P] Write model spec for User validations (username presence, uniqueness, password length) in `spec/models/user_spec.rb`
 
 ### Implementation for Authentication
 
-- [ ] T008 Create User migration with `username` (string, unique, not null), `password_digest` (string), timestamps in `db/migrate/..._create_users.rb`; run `rails db:migrate`
-- [ ] T009 Implement `User` model with `has_secure_password`, validates `username` presence + uniqueness in `app/models/user.rb`
-- [ ] T010 Implement `UsersController` with `new` and `create` actions (registration) in `app/controllers/users_controller.rb`
-- [ ] T011 Implement `SessionsController` with `new`, `create`, `destroy` (login/logout) in `app/controllers/sessions_controller.rb`
-- [ ] T012 Add `current_user`, `logged_in?`, `require_login` helpers and `before_action :require_login` to `app/controllers/application_controller.rb`
-- [ ] T013 [P] Create registration view (Bootstrap form: username + password + confirm) in `app/views/users/new.html.erb`
-- [ ] T014 [P] Create login view (Bootstrap form: username + password) in `app/views/sessions/new.html.erb`
-- [ ] T015 Add `resources :users, only: [:new, :create]`, `resource :session, only: [:new, :create, :destroy]` to `config/routes.rb`
-- [ ] T016 [P] Create FactoryBot factory for `User` in `spec/factories/users.rb`
+- [X] T008 Create User migration with `username` (string, unique, not null), `password_digest` (string), timestamps in `db/migrate/..._create_users.rb`; run `rails db:migrate`
+- [X] T009 Implement `User` model with `has_secure_password`, validates `username` presence + uniqueness in `app/models/user.rb`
+- [X] T010 Implement `UsersController` with `new` and `create` actions (registration) in `app/controllers/users_controller.rb`
+- [X] T011 Implement `SessionsController` with `new`, `create`, `destroy` (login/logout) in `app/controllers/sessions_controller.rb`
+- [X] T012 Add `current_user`, `logged_in?`, `require_login` helpers and `before_action :require_login` to `app/controllers/application_controller.rb`
+- [X] T013 [P] Create registration view (Bootstrap form: username + password + confirm) in `app/views/users/new.html.erb`
+- [X] T014 [P] Create login view (Bootstrap form: username + password) in `app/views/sessions/new.html.erb`
+- [X] T015 Add `resources :users` and `resource :session` to routes
+- [X] T016 [P] Create FactoryBot factory for `User` in `spec/factories/users.rb`
 
 **Checkpoint**: Any request without a valid session redirects to login. Registration and login work end-to-end.
 
@@ -67,23 +67,23 @@ list shows card counts. Deleting a deck cascades to its cards.
 
 > Write these tests FIRST; ensure they FAIL before implementation
 
-- [ ] T017 [P] [US1] Write system spec for deck CRUD (create, edit, delete, card count display) in `spec/system/decks_spec.rb`
-- [ ] T018 [P] [US1] Write system spec for card CRUD within a deck (add, edit, delete, list) in `spec/system/cards_spec.rb`
-- [ ] T019 [P] [US1] Write model spec for `Deck` (validations: name required, belongs to user, has many cards dependent destroy) in `spec/models/deck_spec.rb`
-- [ ] T020 [P] [US1] Write model spec for `Card` (validations: front + back required, belongs to deck) in `spec/models/card_spec.rb`
+- [X] T017 [P] [US1] Write system spec for deck CRUD (create, edit, delete, card count display) in `spec/system/decks_spec.rb`
+- [X] T018 [P] [US1] Write system spec for card CRUD within a deck (add, edit, delete, list) in `spec/system/cards_spec.rb`
+- [X] T019 [P] [US1] Write model spec for `Deck` (validations: name required, belongs to user, has many cards dependent destroy) in `spec/models/deck_spec.rb`
+- [X] T020 [P] [US1] Write model spec for `Card` (validations: front + back required, belongs to deck) in `spec/models/card_spec.rb`
 
 ### Implementation for User Story 1
 
-- [ ] T021 [P] [US1] Create `Deck` migration with `user_id` (references), `name` (string, not null), `description` (text), timestamps in `db/migrate/..._create_decks.rb`
-- [ ] T022 [P] [US1] Create `Card` migration with `deck_id` (references), `front` (text, not null), `back` (text, not null), timestamps in `db/migrate/..._create_cards.rb`; run `rails db:migrate`
-- [ ] T023 [US1] Implement `Deck` model: `belongs_to :user`, `has_many :cards, dependent: :destroy`, validates `name` presence, scope all queries to current user in `app/models/deck.rb`
-- [ ] T024 [US1] Implement `Card` model: `belongs_to :deck`, validates `front` and `back` presence in `app/models/card.rb`
-- [ ] T025 [US1] Implement `DecksController` (index, new, create, show, edit, update, destroy) scoped to `current_user` in `app/controllers/decks_controller.rb`
-- [ ] T026 [US1] Implement `CardsController` (index, new, create, edit, update, destroy) nested under decks in `app/controllers/cards_controller.rb`
-- [ ] T027 [P] [US1] Create deck views: `index.html.erb` (Bootstrap list with name, card count, due count placeholder, action buttons), `new.html.erb`, `edit.html.erb`, `show.html.erb` in `app/views/decks/`
-- [ ] T028 [P] [US1] Create card views: `index.html.erb` (list with front/back preview, action buttons), `new.html.erb`, `edit.html.erb` in `app/views/cards/`
-- [ ] T029 [US1] Add nested routes `resources :decks do; resources :cards; end` to `config/routes.rb`
-- [ ] T030 [P] [US1] Create FactoryBot factories for `Deck` and `Card` in `spec/factories/decks.rb` and `spec/factories/cards.rb`
+- [X] T021 [P] [US1] Create `Deck` migration with `user_id` (references), `name` (string, not null), `description` (text), timestamps in `db/migrate/..._create_decks.rb`
+- [X] T022 [P] [US1] Create `Card` migration with `deck_id` (references), `front` (text, not null), `back` (text, not null), timestamps in `db/migrate/..._create_cards.rb`; run `rails db:migrate`
+- [X] T023 [US1] Implement `Deck` model: `belongs_to :user`, `has_many :cards, dependent: :destroy`, validates `name` presence, scope all queries to current user in `app/models/deck.rb`
+- [X] T024 [US1] Implement `Card` model: `belongs_to :deck`, validates `front` and `back` presence in `app/models/card.rb`
+- [X] T025 [US1] Implement `DecksController` (index, new, create, show, edit, update, destroy) scoped to `current_user` in `app/controllers/decks_controller.rb`
+- [X] T026 [US1] Implement `CardsController` (index, new, create, edit, update, destroy) nested under decks in `app/controllers/cards_controller.rb`
+- [X] T027 [P] [US1] Create deck views: `index.html.erb` (Bootstrap list with name, card count, due count placeholder, action buttons), `new.html.erb`, `edit.html.erb`, `show.html.erb` in `app/views/decks/`
+- [X] T028 [P] [US1] Create card views: `index.html.erb` (list with front/back preview, action buttons), `new.html.erb`, `edit.html.erb` in `app/views/cards/`
+- [X] T029 [US1] Add nested routes for decks/cards
+- [X] T030 [P] [US1] Create FactoryBot factories for `Deck` and `Card` in `spec/factories/decks.rb` and `spec/factories/cards.rb`
 
 **Checkpoint**: User Story 1 fully functional — CRUD for decks and cards works independently.
 

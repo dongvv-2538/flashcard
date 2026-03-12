@@ -1,0 +1,48 @@
+<%# T027 — Deck form partial (shared by new/edit) %>
+<div class="row justify-content-center">
+  <div class="col-md-7">
+    <div class="card shadow-sm">
+      <div class="card-body p-4">
+        <h1 class="card-title h3 mb-4">
+          <%= @deck.new_record? ? "New Deck" : "Edit Deck" %>
+        </h1>
+
+        <%= form_with model: @deck do |f| %>
+          <% if @deck.errors.any? %>
+            <div class="alert alert-danger" role="alert">
+              <strong><%= pluralize(@deck.errors.count, "error") %>:</strong>
+              <ul class="mb-0 mt-1">
+                <% @deck.errors.each do |e| %>
+                  <li><%= e.full_message %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+
+          <div class="mb-3">
+            <%= f.label :name, class: "form-label" %>
+            <%= f.text_field :name,
+                             class: "form-control #{"is-invalid" if @deck.errors[:name].any?}",
+                             autofocus: @deck.new_record? %>
+          </div>
+
+          <div class="mb-4">
+            <%= f.label :description, class: "form-label" %>
+            <%= f.text_area :description,
+                            class: "form-control",
+                            rows: 3,
+                            placeholder: "Optional description" %>
+          </div>
+
+          <div class="d-flex gap-2">
+            <%= f.submit @deck.new_record? ? "Create Deck" : "Update Deck",
+                         class: "btn btn-primary" %>
+            <%= link_to "Cancel",
+                        @deck.new_record? ? decks_path : deck_path(@deck),
+                        class: "btn btn-outline-secondary" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

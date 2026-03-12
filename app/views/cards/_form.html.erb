@@ -1,0 +1,52 @@
+<%# T028 — Card form partial (shared by new/edit) %>
+<div class="row justify-content-center">
+  <div class="col-md-7">
+    <div class="card shadow-sm">
+      <div class="card-body p-4">
+        <h1 class="card-title h3 mb-1">
+          <%= @card.new_record? ? "New Card" : "Edit Card" %>
+        </h1>
+        <p class="text-muted mb-4">
+          Deck: <%= link_to @deck.name, deck_path(@deck) %>
+        </p>
+
+        <%= form_with model: [@deck, @card] do |f| %>
+          <% if @card.errors.any? %>
+            <div class="alert alert-danger" role="alert">
+              <strong><%= pluralize(@card.errors.count, "error") %>:</strong>
+              <ul class="mb-0 mt-1">
+                <% @card.errors.each do |e| %>
+                  <li><%= e.full_message %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+
+          <div class="mb-3">
+            <%= f.label :front, class: "form-label fw-semibold" %>
+            <%= f.text_area :front,
+                            class: "form-control #{"is-invalid" if @card.errors[:front].any?}",
+                            rows: 3,
+                            autofocus: @card.new_record?,
+                            placeholder: "Question / word / phrase" %>
+          </div>
+
+          <div class="mb-4">
+            <%= f.label :back, class: "form-label fw-semibold" %>
+            <%= f.text_area :back,
+                            class: "form-control #{"is-invalid" if @card.errors[:back].any?}",
+                            rows: 3,
+                            placeholder: "Answer / translation / definition" %>
+          </div>
+
+          <div class="d-flex gap-2">
+            <%= f.submit @card.new_record? ? "Create Card" : "Update Card",
+                         class: "btn btn-primary" %>
+            <%= link_to "Cancel", deck_cards_path(@deck),
+                        class: "btn btn-outline-secondary" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
