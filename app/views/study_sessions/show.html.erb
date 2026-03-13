@@ -1,0 +1,83 @@
+<%# T041 — Study session: show current card %>
+<% content_for :title, "Study: #{@deck.name}" %>
+
+<div class="row justify-content-center">
+  <div class="col-12 col-md-8 col-lg-6">
+
+    <%# Progress header %>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h1 class="h5 mb-0">
+        <%= link_to @deck.name, deck_path(@deck), class: "text-decoration-none" %>
+      </h1>
+      <span class="badge bg-secondary fs-6" aria-label="Progress">
+        Card <%= @card_number %> of <%= @total_count %>
+      </span>
+    </div>
+
+    <%# Progress bar %>
+    <% progress_pct = (@total_count > 0 ? ((@card_number - 1).to_f / @total_count * 100).round : 0) %>
+    <div class="progress mb-4" style="height: 6px;" role="progressbar"
+         aria-valuenow="<%= progress_pct %>" aria-valuemin="0" aria-valuemax="100">
+      <div class="progress-bar" style="width: <%= progress_pct %>%"></div>
+    </div>
+
+    <%# Card panel %>
+    <div class="card shadow-sm mb-4">
+      <%# Front face — always visible %>
+      <div class="card-body text-center py-5" id="card-front">
+        <p class="fs-3 mb-0"><%= @card.front %></p>
+      </div>
+
+      <%# Back face — hidden until "Show Answer" is clicked %>
+      <div id="card-back" class="card-body border-top text-center py-4" style="display: none;">
+        <p class="fs-4 text-success mb-0"><%= @card.back %></p>
+      </div>
+    </div>
+
+    <%# Show Answer button (hidden once answer is revealed) %>
+    <div id="show-answer-section" class="text-center mb-4">
+      <button type="button" class="btn btn-primary btn-lg px-5"
+              id="show-answer-btn"
+              aria-label="Show answer for this card">
+        Show Answer
+      </button>
+    </div>
+
+    <%# Rating buttons — hidden until answer is shown %>
+    <div id="rating-section" style="display: none;">
+      <p class="text-center text-muted small mb-3">How well did you recall this card?</p>
+      <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+
+        <%= button_to "Again",
+                      deck_study_session_path(@deck, @study_session),
+                      method: :patch,
+                      params: { rating: "again" },
+                      class: "btn btn-danger btn-lg",
+                      aria: { label: "Again — did not recall" } %>
+
+        <%= button_to "Hard",
+                      deck_study_session_path(@deck, @study_session),
+                      method: :patch,
+                      params: { rating: "hard" },
+                      class: "btn btn-warning btn-lg",
+                      aria: { label: "Hard — recalled with difficulty" } %>
+
+        <%= button_to "Good",
+                      deck_study_session_path(@deck, @study_session),
+                      method: :patch,
+                      params: { rating: "good" },
+                      class: "btn btn-success btn-lg",
+                      aria: { label: "Good — recalled correctly" } %>
+
+        <%= button_to "Easy",
+                      deck_study_session_path(@deck, @study_session),
+                      method: :patch,
+                      params: { rating: "easy" },
+                      class: "btn btn-info btn-lg",
+                      aria: { label: "Easy — recalled without effort" } %>
+
+      </div>
+    </div>
+
+  </div>
+</div>

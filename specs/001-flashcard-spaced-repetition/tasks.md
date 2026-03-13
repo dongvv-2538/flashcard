@@ -114,9 +114,9 @@ a session-complete summary.
 - [X] T038 [US2] Implement `SessionRating` model: `belongs_to :study_session`, `belongs_to :card`, `enum :rating, { again: 0, hard: 1, good: 2, easy: 3 }` in `app/models/session_rating.rb`
 - [X] T039 [US2] Implement `SessionQueueService`: initialise card queue from deck, track Again re-queue count per card (max 3), expose `next_card`, `remaining_count`, `total_count`, `empty?` in `app/services/session_queue_service.rb`; store queue state in Rails session (JSON)
 - [X] T040 [US2] Implement `StudySessionsController`: `create` (start session, init queue), `show` (current card), `update` (submit rating → create SessionRating, advance queue or end session) in `app/controllers/study_sessions_controller.rb`
-- [ ] T041 [US2] Create session show view: card front display, "Show Answer" button (hidden back), rating buttons (Again/Hard/Good/Easy), progress indicator "Card X of Y" in `app/views/study_sessions/show.html.erb`
+- [X] T041 [US2] Create session show view: card front display, "Show Answer" button (hidden back), rating buttons (Again/Hard/Good/Easy), progress indicator "Card X of Y" in `app/views/study_sessions/show.html.erb`
 - [ ] T042 [P] [US2] Add jQuery for card flip: clicking "Show Answer" reveals the back panel and rating buttons via toggle in `app/javascript/study_session.js`
-- [ ] T043 [US2] Create session summary view: total reviewed, count per rating (Bootstrap badge breakdown), "Back to Deck" link in `app/views/study_sessions/summary.html.erb`
+- [X] T043 [US2] Create session summary view: total reviewed, count per rating (Bootstrap badge breakdown), "Back to Deck" link in `app/views/study_sessions/summary.html.erb`
 - [ ] T044 [US2] Add study session routes: `resources :study_sessions, only: [:new, :create, :show, :update]` nested under decks in `config/routes.rb`
 - [ ] T045 [P] [US2] Create FactoryBot factories for `StudySession` and `SessionRating` in `spec/factories/`
 

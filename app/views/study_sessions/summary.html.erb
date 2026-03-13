@@ -1,0 +1,48 @@
+<%# T043 — Study session: summary after completion %>
+<% content_for :title, "Session Complete — #{@deck.name}" %>
+
+<div class="row justify-content-center">
+  <div class="col-12 col-md-7 col-lg-5 text-center">
+
+    <div class="display-4 mb-2">🎉</div>
+    <h1 class="h2 mb-1">Session Complete</h1>
+    <p class="text-muted mb-4">
+      You reviewed
+      <strong><%= @study_session.cards_reviewed_count %></strong>
+      card<%= @study_session.cards_reviewed_count == 1 ? "" : "s" %>.
+    </p>
+
+    <%# Rating breakdown %>
+    <div class="card shadow-sm mb-4">
+      <div class="card-header fw-semibold text-start">Rating Breakdown</div>
+      <div class="card-body">
+        <div class="d-flex flex-wrap justify-content-center gap-3">
+
+          <% [["again", "danger",  "Again"],
+              ["hard",  "warning", "Hard"],
+              ["good",  "success", "Good"],
+              ["easy",  "info",    "Easy"]].each do |key, colour, label| %>
+            <div class="text-center">
+              <span class="badge bg-<%= colour %> fs-5 px-3 py-2">
+                <%= @ratings_breakdown[key] || 0 %>
+              </span>
+              <div class="text-muted small mt-1"><%= label %></div>
+            </div>
+          <% end %>
+
+        </div>
+      </div>
+    </div>
+
+    <%# Actions %>
+    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+      <%= link_to "Back to Deck",
+                  deck_path(@deck),
+                  class: "btn btn-primary btn-lg" %>
+      <%= link_to "Study Again",
+                  deck_path(@deck),
+                  class: "btn btn-outline-secondary btn-lg" %>
+    </div>
+
+  </div>
+</div>
