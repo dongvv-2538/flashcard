@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_03_12_102411) do
+ActiveRecord::Schema[7.2].define(version: 2026_03_13_100001) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -33,6 +33,34 @@ ActiveRecord::Schema[7.2].define(version: 2026_03_12_102411) do
     t.index ["user_id"], name: "index_decks_on_user_id"
   end
 
+  create_table "session_ratings", force: :cascade do |t|
+    t.bigint "study_session_id", null: false
+    t.bigint "card_id", null: false
+    t.integer "rating", null: false
+    t.datetime "reviewed_at", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["card_id"], name: "index_session_ratings_on_card_id"
+    t.index ["rating"], name: "index_session_ratings_on_rating"
+    t.index ["study_session_id", "card_id"], name: "index_session_ratings_on_study_session_id_and_card_id"
+    t.index ["study_session_id"], name: "index_session_ratings_on_study_session_id"
+  end
+
+  create_table "study_sessions", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "deck_id", null: false
+    t.integer "session_type", default: 0, null: false
+    t.datetime "started_at", null: false
+    t.datetime "ended_at"
+    t.integer "cards_reviewed_count", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["deck_id"], name: "index_study_sessions_on_deck_id"
+    t.index ["ended_at"], name: "index_study_sessions_on_ended_at"
+    t.index ["session_type"], name: "index_study_sessions_on_session_type"
+    t.index ["user_id"], name: "index_study_sessions_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "username", null: false
     t.string "password_digest", null: false
@@ -43,4 +71,8 @@ ActiveRecord::Schema[7.2].define(version: 2026_03_12_102411) do
 
   add_foreign_key "cards", "decks"
   add_foreign_key "decks", "users"
+  add_foreign_key "session_ratings", "cards"
+  add_foreign_key "session_ratings", "study_sessions"
+  add_foreign_key "study_sessions", "decks"
+  add_foreign_key "study_sessions", "users"
 end
