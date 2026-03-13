@@ -10,7 +10,9 @@ Rails.application.routes.draw do
     resources :cards
 
     # Phase 4 — Practice Session (US2)
-    resources :study_sessions, only: %i[new create show update]
+    resources :study_sessions, only: %i[new create show update] do
+      member { get :summary }
+    end
   end
 
   # Phase 5 — Review Queue (US3)
