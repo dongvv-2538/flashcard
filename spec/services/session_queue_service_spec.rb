@@ -100,14 +100,20 @@ RSpec.describe SessionQueueService do
     it "does not re-queue a card rated Again beyond the cap even if other cards remain" do
       service = described_class.new([card1, card2])
 
-      3.times { service.advance!(:again) }  # card1 hits cap (3 re-queues done, next is final)
-      # After 3 advances with Again, card1 has been re-queued 3 times.
-      # On the 4th encounter (advance!(:again)) it must NOT be re-queued.
-      service.advance!(:again)
+      # After 5 interleaved :again advances, card1 has been re-queued 3× (cap)
+      # and card2 has been re-queued 2×. Queue is [card2, card1].
+      # Trace: [c1,c2]→[c2,c1]→[c1,c2]→[c2,c1]→[c1,c2]→[c2,c1]
+      5.times { service.advance!(:again) }
 
-      # Only card2 should remain
-      expect(service.remaining_count).to eq(1)
+      # card2 is still in the queue — other card remains while card1 is at cap
+      expect(service.remaining_count).to eq(2)
       expect(service.next_card).to eq(card2)
+
+      # Advance past card2, then hit card1's cap → card1 must be dropped
+      service.advance!(:good)   # card2 done; queue: [card1]
+      service.advance!(:again)  # card1 at cap — NOT re-queued → dropped
+
+      expect(service.empty?).to be true
     end
   end
 
