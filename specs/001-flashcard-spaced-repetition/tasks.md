@@ -102,7 +102,7 @@ a session-complete summary.
 > Write these tests FIRST; ensure they FAIL before implementation
 
 - [X] T031 [P] [US2] Write system spec for full session flow: start → flip card → rate → Again re-queue → summary in `spec/system/study_sessions_spec.rb`
-- [ ] T032 [P] [US2] Write model spec for `StudySession` (enum session_type, associations, completed? scope) in `spec/models/study_session_spec.rb`
+- [X] T032 [P] [US2] Write model spec for `StudySession` (enum session_type, associations, completed? scope) in `spec/models/study_session_spec.rb`
 - [ ] T033 [P] [US2] Write model spec for `SessionRating` (rating enum, associations) in `spec/models/session_rating_spec.rb`
 - [ ] T034 [P] [US2] Write service spec for `SessionQueueService` (initial queue, Again re-queue capped at 3×, next_card, empty?) in `spec/services/session_queue_service_spec.rb`
 
