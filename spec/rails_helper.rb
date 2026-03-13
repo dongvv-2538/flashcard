@@ -31,6 +31,9 @@ RSpec.configure do |config|
   # FactoryBot helpers — no need to prefix FactoryBot.create
   config.include FactoryBot::Syntax::Methods
 
+  # ActiveSupport time helpers (travel_to, freeze_time)
+  config.include ActiveSupport::Testing::TimeHelpers
+
   config.fixture_paths = [
     Rails.root.join('spec/fixtures')
   ]

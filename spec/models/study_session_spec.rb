@@ -58,7 +58,7 @@ RSpec.describe StudySession, type: :model do
       it "returns sessions that have an ended_at timestamp" do
         user = create(:user)
         deck = create(:deck, user: user)
-        completed   = create(:study_session, user: user, deck: deck, ended_at: 1.minute.ago)
+        completed   = create(:study_session, user: user, deck: deck, ended_at: 1.minute.ago, cards_reviewed_count: 1)
         incomplete  = create(:study_session, user: user, deck: deck, ended_at: nil)
 
         expect(StudySession.completed).to include(completed)

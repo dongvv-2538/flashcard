@@ -64,10 +64,9 @@ RSpec.describe SessionRating, type: :model do
 
   describe "reviewed_at" do
     it "records when the review happened" do
-      freeze_time do
-        rating = create(:session_rating, reviewed_at: Time.current)
-        expect(rating.reviewed_at).to eq(Time.current)
-      end
+      timestamp = 1.hour.ago
+      rating = create(:session_rating, reviewed_at: timestamp)
+      expect(rating.reviewed_at).to be_within(1.second).of(timestamp)
     end
   end
 

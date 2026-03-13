@@ -110,8 +110,8 @@ a session-complete summary.
 
 - [X] T035 [P] [US2] Create `StudySession` migration with `user_id`, `deck_id`, `session_type` (integer enum: full_deck/review_due), `started_at`, `ended_at`, `cards_reviewed_count` in `db/migrate/..._create_study_sessions.rb`
 - [X] T036 [P] [US2] Create `SessionRating` migration with `study_session_id`, `card_id`, `rating` (integer enum: again/hard/good/easy), `reviewed_at` in `db/migrate/..._create_session_ratings.rb`; run `rails db:migrate`
-- [ ] T037 [US2] Implement `StudySession` model: `belongs_to :user`, `belongs_to :deck`, `has_many :session_ratings`, `enum :session_type`, `enum` not needed for rating (that's on `SessionRating`) in `app/models/study_session.rb`
-- [ ] T038 [US2] Implement `SessionRating` model: `belongs_to :study_session`, `belongs_to :card`, `enum :rating, { again: 0, hard: 1, good: 2, easy: 3 }` in `app/models/session_rating.rb`
+- [X] T037 [US2] Implement `StudySession` model: `belongs_to :user`, `belongs_to :deck`, `has_many :session_ratings`, `enum :session_type`, `enum` not needed for rating (that's on `SessionRating`) in `app/models/study_session.rb`
+- [X] T038 [US2] Implement `SessionRating` model: `belongs_to :study_session`, `belongs_to :card`, `enum :rating, { again: 0, hard: 1, good: 2, easy: 3 }` in `app/models/session_rating.rb`
 - [ ] T039 [US2] Implement `SessionQueueService`: initialise card queue from deck, track Again re-queue count per card (max 3), expose `next_card`, `remaining_count`, `total_count`, `empty?` in `app/services/session_queue_service.rb`; store queue state in Rails session (JSON)
 - [ ] T040 [US2] Implement `StudySessionsController`: `create` (start session, init queue), `show` (current card), `update` (submit rating → create SessionRating, advance queue or end session) in `app/controllers/study_sessions_controller.rb`
 - [ ] T041 [US2] Create session show view: card front display, "Show Answer" button (hidden back), rating buttons (Again/Hard/Good/Easy), progress indicator "Card X of Y" in `app/views/study_sessions/show.html.erb`
