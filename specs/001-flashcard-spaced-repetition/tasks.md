@@ -136,22 +136,22 @@ start a review-only session from there.
 
 > Write these tests FIRST; ensure they FAIL before implementation
 
-- [ ] T046 [P] [US3] Write unit spec for `SM2Scheduler` covering all four ratings, progressive interval growth, ease factor bounds in `spec/services/sm2_scheduler_spec.rb`
-- [ ] T047 [P] [US3] Write model spec for `CardSchedule` (validations, scopes: `due_today`, `overdue`, `new_cards`) in `spec/models/card_schedule_spec.rb`
-- [ ] T048 [P] [US3] Write service spec for `ReviewQueueService` (returns only due/overdue, grouped by deck, ordered correctly) in `spec/services/review_queue_service_spec.rb`
-- [ ] T049 [P] [US3] Write system spec for Review view: due cards listed, no-due message, start review session from queue in `spec/system/review_queue_spec.rb`
+- [X] T046 [P] [US3] Write unit spec for `SM2Scheduler` covering all four ratings, progressive interval growth, ease factor bounds in `spec/services/sm2_scheduler_spec.rb`
+- [X] T047 [P] [US3] Write model spec for `CardSchedule` (validations, scopes: `due_today`, `overdue`, `new_cards`) in `spec/models/card_schedule_spec.rb`
+- [X] T048 [P] [US3] Write service spec for `ReviewQueueService` (returns only due/overdue, grouped by deck, ordered correctly) in `spec/services/review_queue_service_spec.rb`
+- [X] T049 [P] [US3] Write system spec for Review view: due cards listed, no-due message, start review session from queue in `spec/system/review_queue_spec.rb`
 
 ### Implementation for User Story 3
 
-- [ ] T050 [P] [US3] Create `CardSchedule` migration with `card_id` (references, unique), `next_review_date` (date), `interval_days` (integer, default 0), `ease_factor` (decimal, default 2.5), `review_count` (integer, default 0), `last_reviewed_at` in `db/migrate/..._create_card_schedules.rb`; run `rails db:migrate`
-- [ ] T051 [US3] Implement `CardSchedule` model: `belongs_to :card`, scopes `due_today` (`next_review_date <= Date.today`), `overdue`, `new_cards` (`review_count == 0`) in `app/models/card_schedule.rb`
-- [ ] T052 [US3] Implement `SM2Scheduler` service: given (current_schedule, rating) → compute new `interval_days`, `ease_factor` (clamped 1.3–2.5), `next_review_date`; return updated attributes in `app/services/sm2_scheduler.rb`
-- [ ] T053 [US3] Wire `SM2Scheduler` into `StudySessionsController#update`: after creating `SessionRating`, upsert `CardSchedule` via `SM2Scheduler` in `app/controllers/study_sessions_controller.rb`
-- [ ] T054 [US3] Implement `ReviewQueueService`: query all `CardSchedule` records due/overdue for `current_user`, group by deck, cap at 100 cards total in `app/services/review_queue_service.rb`
-- [ ] T055 [US3] Implement `ReviewsController` with `index` (render queue grouped by deck) and `create` (start a `review_due` StudySession from the queue) in `app/controllers/reviews_controller.rb`
-- [ ] T056 [P] [US3] Create review queue view: grouped deck sections with due card count, "Start Review" button, no-due-cards message + next scheduled date fallback in `app/views/reviews/index.html.erb`
-- [ ] T057 [US3] Add review routes: `resources :reviews, only: [:index, :create]` to `config/routes.rb`; add link in navbar
-- [ ] T058 [P] [US3] Create FactoryBot factory for `CardSchedule` in `spec/factories/card_schedules.rb`
+- [X] T050 [P] [US3] Create `CardSchedule` migration with `card_id` (references, unique), `next_review_date` (date), `interval_days` (integer, default 0), `ease_factor` (decimal, default 2.5), `review_count` (integer, default 0), `last_reviewed_at` in `db/migrate/..._create_card_schedules.rb`; run `rails db:migrate`
+- [X] T051 [US3] Implement `CardSchedule` model: `belongs_to :card`, scopes `due_today` (`next_review_date <= Date.today`), `overdue`, `new_cards` (`review_count == 0`) in `app/models/card_schedule.rb`
+- [X] T052 [US3] Implement `SM2Scheduler` service: given (current_schedule, rating) → compute new `interval_days`, `ease_factor` (clamped 1.3–2.5), `next_review_date`; return updated attributes in `app/services/sm2_scheduler.rb`
+- [X] T053 [US3] Wire `SM2Scheduler` into `StudySessionsController#update`: after creating `SessionRating`, upsert `CardSchedule` via `SM2Scheduler` in `app/controllers/study_sessions_controller.rb`
+- [X] T054 [US3] Implement `ReviewQueueService`: query all `CardSchedule` records due/overdue for `current_user`, group by deck, cap at 100 cards total in `app/services/review_queue_service.rb`
+- [X] T055 [US3] Implement `ReviewsController` with `index` (render queue grouped by deck) and `create` (start a `review_due` StudySession from the queue) in `app/controllers/reviews_controller.rb`
+- [X] T056 [P] [US3] Create review queue view: grouped deck sections with due card count, "Start Review" button, no-due-cards message + next scheduled date fallback in `app/views/reviews/index.html.erb`
+- [X] T057 [US3] Add review routes: `resources :reviews, only: [:index, :create]` to `config/routes.rb`; add link in navbar
+- [X] T058 [P] [US3] Create FactoryBot factory for `CardSchedule` in `spec/factories/card_schedules.rb`
 
 **Checkpoint**: User Story 3 fully functional — ratings produce schedules; Review view shows only due/overdue cards; review session works.
 

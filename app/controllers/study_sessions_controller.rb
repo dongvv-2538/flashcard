@@ -70,6 +70,9 @@ class StudySessionsController < ApplicationController
         reviewed_at: Time.current
       )
 
+      # T053 — Update (or create) the card's SM-2 schedule
+      update_card_schedule(card, rating)
+
       queue.advance!(rating)
       store_queue_state(queue)
 
@@ -130,5 +133,22 @@ class StudySessionsController < ApplicationController
       cards_reviewed_count: reviewed_count
     )
     session.delete(queue_session_key)
+  end
+
+  # T053 — Upsert the CardSchedule for a card using SM2Scheduler
+  def update_card_schedule(card, rating)
+    schedule = card.card_schedule || CardSchedule.new(card: card)
+
+    current = {
+      interval_days: schedule.interval_days || 0,
+      ease_factor:   schedule.ease_factor   || 2.5,
+      review_count:  schedule.review_count  || 0
+    }
+
+    attrs = SM2Scheduler.call(schedule: current, rating: rating)
+    schedule.assign_attributes(attrs)
+    schedule.save!
+  rescue StandardError => e
+    Rails.logger.error("SM2Scheduler failed for card #{card.id}: #{e.message}")
   end
 end

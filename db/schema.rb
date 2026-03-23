@@ -10,9 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_03_13_100001) do
+ActiveRecord::Schema[7.2].define(version: 2026_03_23_004652) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "card_schedules", force: :cascade do |t|
+    t.bigint "card_id", null: false
+    t.date "next_review_date", null: false
+    t.integer "interval_days", default: 0, null: false
+    t.decimal "ease_factor", precision: 4, scale: 2, default: "2.5", null: false
+    t.integer "review_count", default: 0, null: false
+    t.datetime "last_reviewed_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["card_id"], name: "index_card_schedules_on_card_id", unique: true
+    t.index ["next_review_date"], name: "index_card_schedules_on_next_review_date"
+  end
 
   create_table "cards", force: :cascade do |t|
     t.bigint "deck_id", null: false
@@ -69,6 +82,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_03_13_100001) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  add_foreign_key "card_schedules", "cards"
   add_foreign_key "cards", "decks"
   add_foreign_key "decks", "users"
   add_foreign_key "session_ratings", "cards"

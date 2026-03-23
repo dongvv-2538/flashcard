@@ -11,6 +11,7 @@
 # end
 
 # These inflection rules are supported but not enabled by default:
-# ActiveSupport::Inflector.inflections(:en) do |inflect|
-#   inflect.acronym "RESTful"
-# end
+ActiveSupport::Inflector.inflections(:en) do |inflect|
+  # SM2 is an acronym — ensures sm2_scheduler.rb autoloads as SM2Scheduler
+  inflect.acronym "SM2"
+end
