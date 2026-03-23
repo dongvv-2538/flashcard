@@ -14,15 +14,15 @@ class SessionsController < ApplicationController
       flash[:notice] = "Welcome back, #{user.username}!"
       redirect_to decks_path
     else
-      flash.now[:alert] = "Invalid username or password."
-      render :new, status: :unprocessable_entity
+      flash.now[:alert] = 'Invalid username or password.'
+      render :new, status: :unprocessable_content
     end
   end
 
   def destroy
     session.delete(:user_id)
     @current_user = nil
-    flash[:notice] = "You have been logged out."
+    flash[:notice] = 'You have been logged out.'
     redirect_to new_session_path
   end
 end

@@ -32,6 +32,7 @@
           <%= button_to "Delete", deck_path(deck),
                         method: :delete,
                         class: "btn btn-sm btn-outline-danger",
+                        aria: { label: "Delete deck #{deck.name}" },
                         data: { turbo_confirm: "Delete deck and all its cards?" } %>
         </div>
       </li>

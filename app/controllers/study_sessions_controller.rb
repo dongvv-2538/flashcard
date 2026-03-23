@@ -9,32 +9,7 @@
 class StudySessionsController < ApplicationController
   before_action :require_login
   before_action :set_deck
-  before_action :set_study_session, only: %i[show update]
-
-  # POST /decks/:deck_id/study_sessions
-  def create
-    cards = @deck.cards.order(:created_at)
-
-    if cards.empty?
-      flash[:alert] = "This deck has no cards. Add some cards before starting a session."
-      return redirect_to @deck
-    end
-
-    @study_session = current_user.study_sessions.build(
-      deck: @deck,
-      session_type: :full_deck,
-      started_at: Time.current
-    )
-
-    if @study_session.save
-      queue = SessionQueueService.new(cards)
-      store_queue_state(queue)
-      redirect_to deck_study_session_path(@deck, @study_session)
-    else
-      flash[:alert] = "Could not start session. Please try again."
-      redirect_to @deck
-    end
-  end
+  before_action :set_study_session, only: %i[show update summary]
 
   # GET /decks/:deck_id/study_sessions/:id
   def show
@@ -50,12 +25,37 @@ class StudySessionsController < ApplicationController
     end
   end
 
+  # POST /decks/:deck_id/study_sessions
+  def create
+    cards = @deck.cards.order(:created_at)
+
+    if cards.empty?
+      flash[:alert] = 'This deck has no cards. Add some cards before starting a session.'
+      return redirect_to @deck
+    end
+
+    @study_session = current_user.study_sessions.build(
+      deck: @deck,
+      session_type: :full_deck,
+      started_at: Time.current
+    )
+
+    if @study_session.save
+      queue = SessionQueueService.new(cards)
+      store_queue_state(queue)
+      redirect_to deck_study_session_path(@deck, @study_session)
+    else
+      flash[:alert] = 'Could not start session. Please try again.'
+      redirect_to @deck
+    end
+  end
+
   # PATCH /decks/:deck_id/study_sessions/:id
   def update
     rating = params[:rating]&.to_sym
 
     unless SessionRating.ratings.key?(rating.to_s)
-      flash[:alert] = "Invalid rating."
+      flash[:alert] = 'Invalid rating.'
       return redirect_to deck_study_session_path(@deck, @study_session)
     end
 
@@ -91,10 +91,10 @@ class StudySessionsController < ApplicationController
   # GET /decks/:deck_id/study_sessions/:id/summary
   def summary
     @ratings_breakdown = @study_session
-                           .session_ratings
-                           .group(:rating)
-                           .count
-                           .transform_keys { |k| SessionRating.ratings.key(k) }
+                         .session_ratings
+                         .group(:rating)
+                         .count
+                         .transform_keys { |k| SessionRating.ratings.key(k) }
   end
 
   private
@@ -102,14 +102,14 @@ class StudySessionsController < ApplicationController
   def set_deck
     @deck = current_user.decks.find(params[:deck_id])
   rescue ActiveRecord::RecordNotFound
-    flash[:alert] = "Deck not found."
+    flash[:alert] = 'Deck not found.'
     redirect_to decks_path
   end
 
   def set_study_session
     @study_session = current_user.study_sessions.find(params[:id])
   rescue ActiveRecord::RecordNotFound
-    flash[:alert] = "Session not found."
+    flash[:alert] = 'Session not found.'
     redirect_to @deck
   end
 
@@ -141,8 +141,8 @@ class StudySessionsController < ApplicationController
 
     current = {
       interval_days: schedule.interval_days || 0,
-      ease_factor:   schedule.ease_factor   || 2.5,
-      review_count:  schedule.review_count  || 0
+      ease_factor: schedule.ease_factor || 2.5,
+      review_count: schedule.review_count || 0
     }
 
     attrs = SM2Scheduler.call(schedule: current, rating: rating)

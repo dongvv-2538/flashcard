@@ -36,7 +36,7 @@ class ReviewsController < ApplicationController
 
     redirect_to deck_study_session_path(deck, study_session)
   rescue ActiveRecord::RecordNotFound
-    flash[:alert] = "Deck not found."
+    flash[:alert] = 'Deck not found.'
     redirect_to reviews_path
   end
 

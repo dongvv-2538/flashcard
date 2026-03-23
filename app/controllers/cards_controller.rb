@@ -14,30 +14,30 @@ class CardsController < ApplicationController
     @card = @deck.cards.build
   end
 
+  def edit; end
+
   def create
     @card = @deck.cards.build(card_params)
     if @card.save
-      flash[:notice] = "Card was successfully created."
+      flash[:notice] = 'Card was successfully created.'
       redirect_to deck_cards_path(@deck)
     else
-      render :new, status: :unprocessable_entity
+      render :new, status: :unprocessable_content
     end
   end
 
-  def edit; end
-
   def update
     if @card.update(card_params)
-      flash[:notice] = "Card was successfully updated."
+      flash[:notice] = 'Card was successfully updated.'
       redirect_to deck_cards_path(@deck)
     else
-      render :edit, status: :unprocessable_entity
+      render :edit, status: :unprocessable_content
     end
   end
 
   def destroy
     @card.destroy
-    flash[:notice] = "Card was deleted."
+    flash[:notice] = 'Card was deleted.'
     redirect_to deck_cards_path(@deck)
   end
 
@@ -46,14 +46,14 @@ class CardsController < ApplicationController
   def set_deck
     @deck = current_user.decks.find(params[:deck_id])
   rescue ActiveRecord::RecordNotFound
-    flash[:alert] = "Deck not found."
+    flash[:alert] = 'Deck not found.'
     redirect_to decks_path
   end
 
   def set_card
     @card = @deck.cards.find(params[:id])
   rescue ActiveRecord::RecordNotFound
-    flash[:alert] = "Card not found."
+    flash[:alert] = 'Card not found.'
     redirect_to deck_cards_path(@deck)
   end
 

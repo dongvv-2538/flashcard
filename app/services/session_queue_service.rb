@@ -44,14 +44,10 @@ class SessionQueueService
   end
 
   # Total card count at session start (never changes after init).
-  def total_count
-    @total_count
-  end
+  attr_reader :total_count
 
   # True when all cards have been completed (nothing left in queue).
-  def empty?
-    @queue.empty?
-  end
+  delegate :empty?, to: :@queue
 
   # ---------------------------------------------------------------------------
   # Mutation
@@ -66,10 +62,11 @@ class SessionQueueService
     card = @queue.shift
     return if card.nil?
 
-    if rating.to_sym == :again && @again_counts[card.id] < MAX_AGAIN_REQUEUES
-      @again_counts[card.id] += 1
-      @queue.push(card)
-    end
+    return unless rating.to_sym == :again && @again_counts[card.id] < MAX_AGAIN_REQUEUES
+
+    @again_counts[card.id] += 1
+    @queue.push(card)
+
     # For any other rating (or when cap reached) the card is simply dropped.
   end
 
@@ -80,9 +77,9 @@ class SessionQueueService
   # Returns a plain Hash that can be stored in session[:queue_state].
   def to_session_state
     {
-      "queue_ids"    => @queue.map(&:id),
-      "again_counts" => @again_counts.transform_keys(&:to_s),
-      "total_count"  => @total_count
+      'queue_ids' => @queue.map(&:id),
+      'again_counts' => @again_counts.transform_keys(&:to_s),
+      'total_count' => @total_count
     }
   end
 
@@ -94,15 +91,15 @@ class SessionQueueService
   def self.from_session_state(state)
     return new([]) if state.blank?
 
-    queue_ids = Array(state["queue_ids"]).map(&:to_i)
+    queue_ids = Array(state['queue_ids']).map(&:to_i)
     cards_by_id = Card.where(id: queue_ids).index_by(&:id)
     ordered_cards = queue_ids.filter_map { |id| cards_by_id[id] }
 
     instance = allocate
     instance.send(:restore_state!,
                   ordered_cards,
-                  state["again_counts"].to_h.transform_keys(&:to_i),
-                  state["total_count"].to_i)
+                  state['again_counts'].to_h.transform_keys(&:to_i),
+                  state['total_count'].to_i)
     instance
   end
 

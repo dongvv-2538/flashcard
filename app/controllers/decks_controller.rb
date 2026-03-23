@@ -6,7 +6,8 @@ class DecksController < ApplicationController
   before_action :set_deck, only: %i[show edit update destroy]
 
   def index
-    @decks = current_user.decks.includes(:cards).order(:name)
+    # T067 — Eager load cards + card_schedules to prevent N+1 on index (due count display)
+    @decks = current_user.decks.includes(cards: :card_schedule).order(:name)
   end
 
   def show
@@ -19,30 +20,30 @@ class DecksController < ApplicationController
     @deck = current_user.decks.build
   end
 
+  def edit; end
+
   def create
     @deck = current_user.decks.build(deck_params)
     if @deck.save
-      flash[:notice] = "Deck was successfully created."
+      flash[:notice] = 'Deck was successfully created.'
       redirect_to @deck
     else
-      render :new, status: :unprocessable_entity
+      render :new, status: :unprocessable_content
     end
   end
 
-  def edit; end
-
   def update
     if @deck.update(deck_params)
-      flash[:notice] = "Deck was successfully updated."
+      flash[:notice] = 'Deck was successfully updated.'
       redirect_to @deck
     else
-      render :edit, status: :unprocessable_entity
+      render :edit, status: :unprocessable_content
     end
   end
 
   def destroy
     @deck.destroy
-    flash[:notice] = "Deck was deleted."
+    flash[:notice] = 'Deck was deleted.'
     redirect_to decks_path
   end
 
@@ -51,7 +52,7 @@ class DecksController < ApplicationController
   def set_deck
     @deck = current_user.decks.find(params[:id])
   rescue ActiveRecord::RecordNotFound
-    flash[:alert] = "Deck not found."
+    flash[:alert] = 'Deck not found.'
     redirect_to decks_path
   end
 

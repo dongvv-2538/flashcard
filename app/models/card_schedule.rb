@@ -22,7 +22,7 @@ class CardSchedule < ApplicationRecord
                                numericality: { greater_than_or_equal_to: 0, only_integer: true }
   validates :card_id,          uniqueness: true
 
-  scope :due_today,  -> { where("next_review_date <= ?", Date.today) }
-  scope :overdue,    -> { where("next_review_date < ?",  Date.today) }
+  scope :due_today,  -> { where(next_review_date: ..Time.zone.today) }
+  scope :overdue,    -> { where(next_review_date: ...Time.zone.today) }
   scope :new_cards,  -> { where(review_count: 0) }
 end

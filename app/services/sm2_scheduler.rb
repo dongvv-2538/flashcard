@@ -37,17 +37,17 @@ class SM2Scheduler
     @interval    = schedule[:interval_days].to_i
     @ease        = schedule[:ease_factor].to_f
     @review_count = schedule[:review_count].to_i
-    @rating      = rating.to_sym
+    @rating = rating.to_sym
   end
 
   def compute
     new_interval, new_ease = updated_interval_and_ease
 
     {
-      interval_days:    new_interval,
-      ease_factor:      clamp_ease(new_ease),
-      next_review_date: Date.today + new_interval,
-      review_count:     @review_count + 1,
+      interval_days: new_interval,
+      ease_factor: clamp_ease(new_ease),
+      next_review_date: Time.zone.today + new_interval,
+      review_count: @review_count + 1,
       last_reviewed_at: Time.current
     }
   end
@@ -59,13 +59,13 @@ class SM2Scheduler
     when :again
       [0, @ease - 0.20]
     when :hard
-      new_int = [@interval == 0 ? 1 : (@interval * 1.2).ceil, 1].max
+      new_int = [@interval.zero? ? 1 : (@interval * 1.2).ceil, 1].max
       [new_int, @ease - 0.15]
     when :good
-      new_int = [@interval == 0 ? 1 : (@interval * @ease).ceil, 1].max
+      new_int = [@interval.zero? ? 1 : (@interval * @ease).ceil, 1].max
       [new_int, @ease]
     when :easy
-      new_int = [@interval == 0 ? 4 : (@interval * @ease * 1.3).ceil, 4].max
+      new_int = [@interval.zero? ? 4 : (@interval * @ease * 1.3).ceil, 4].max
       [new_int, @ease + 0.15]
     else
       raise ArgumentError, "Unknown rating: #{@rating.inspect}"

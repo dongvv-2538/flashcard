@@ -13,7 +13,7 @@ class UsersController < ApplicationController
       flash[:notice] = "Welcome, #{@user.username}! Your account has been created."
       redirect_to decks_path
     else
-      render :new, status: :unprocessable_entity
+      render :new, status: :unprocessable_content
     end
   end
 

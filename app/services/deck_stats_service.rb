@@ -24,13 +24,13 @@ class DeckStatsService
 
     return zero_stats if card_ids.empty?
 
-    schedules    = CardSchedule.where(card_id: card_ids)
+    schedules = CardSchedule.where(card_id: card_ids)
     scheduled_ids = schedules.pluck(:card_id)
 
     total     = card_ids.size
     new_count = card_ids.size - scheduled_ids.size
     due_today = schedules.due_today.count
-    learned   = schedules.where("interval_days > 1").count
+    learned   = schedules.where('interval_days > 1').count
 
     { total: total, new: new_count, due_today: due_today, learned: learned }
   end

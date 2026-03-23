@@ -9,8 +9,6 @@ class SessionRating < ApplicationRecord
 
   enum :rating, { again: 0, hard: 1, good: 2, easy: 3 }
 
-  validates :study_session, presence: true
-  validates :card,          presence: true
   validates :rating,        presence: true
   validates :reviewed_at,   presence: true
 end

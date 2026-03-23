@@ -10,13 +10,11 @@ class StudySession < ApplicationRecord
 
   enum :session_type, { full_deck: 0, review_due: 1 }, default: :full_deck
 
-  validates :user,   presence: true
-  validates :deck,   presence: true
   validates :started_at, presence: true
   validates :cards_reviewed_count, numericality: { greater_than_or_equal_to: 0 }
 
   # A session is completed when it has ended AND at least one card was reviewed.
-  scope :completed, -> { where.not(ended_at: nil).where("cards_reviewed_count > 0") }
+  scope :completed, -> { where.not(ended_at: nil).where('cards_reviewed_count > 0') }
 
   def completed?
     ended_at.present? && cards_reviewed_count.positive?

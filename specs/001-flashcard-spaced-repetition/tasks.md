@@ -186,12 +186,12 @@ learned (interval > 1 day) card counts, updating after each session.
 
 **Purpose**: Code quality, accessibility, performance, and coverage gates.
 
-- [ ] T065 [P] Run RuboCop `--autocorrect` across `app/` and `spec/`; fix remaining manual offenses; ensure zero violations in `.rubocop.yml`-governed files
-- [ ] T066 [P] Accessibility audit: add `aria-label` to icon buttons, verify heading hierarchy (`h1`→`h2`→`h3`), test tab-order through session flow across `app/views/`
-- [ ] T067 Add `includes(:card_schedules)` / eager loading to `DecksController#index` and `ReviewQueueService` to prevent N+1 queries
-- [ ] T068 [P] Run SimpleCov coverage report; add missing unit tests in `spec/models/` and `spec/services/` until overall coverage ≥80%
-- [ ] T069 Audit all flash messages and error messages across controllers for human-readable, actionable wording (Constitution Principle III) in `app/controllers/`
-- [ ] T070 [P] Manual quickstart smoke test: register → create deck → add 5 cards → run session → check review queue next day (use `travel_to` in test or manually advance date)
+- [X] T065 [P] Run RuboCop `--autocorrect` across `app/` and `spec/`; fix remaining manual offenses; ensure zero violations in `.rubocop.yml`-governed files
+- [X] T066 [P] Accessibility audit: add `aria-label` to icon buttons, verify heading hierarchy (`h1`→`h2`→`h3`), test tab-order through session flow across `app/views/`
+- [X] T067 Add `includes(:card_schedules)` / eager loading to `DecksController#index` and `ReviewQueueService` to prevent N+1 queries
+- [X] T068 [P] Run SimpleCov coverage report; add missing unit tests in `spec/models/` and `spec/services/` until overall coverage ≥80%
+- [X] T069 Audit all flash messages and error messages across controllers for human-readable, actionable wording (Constitution Principle III) in `app/controllers/`
+- [X] T070 [P] Manual quickstart smoke test: register → create deck → add 5 cards → run session → check review queue next day (use `travel_to` in test or manually advance date)
 
 ---
 

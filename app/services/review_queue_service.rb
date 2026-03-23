@@ -26,19 +26,7 @@ class ReviewQueueService
   # Returns all due/overdue cards for the user, capped at MAX_CARDS.
   # @return [Array<Card>]
   def due_cards
-    @due_cards ||= begin
-      deck_ids = @user.decks.pluck(:id)
-      return [] if deck_ids.empty?
-
-      CardSchedule
-        .due_today
-        .joins(:card)
-        .where(cards: { deck_id: deck_ids })
-        .includes(card: :deck)
-        .order(:next_review_date)
-        .limit(MAX_CARDS)
-        .map(&:card)
-    end
+    @due_cards ||= fetch_due_cards
   end
 
   # Returns the earliest upcoming (future) review date across all of the
@@ -49,9 +37,24 @@ class ReviewQueueService
     return nil if deck_ids.empty?
 
     CardSchedule
-      .where("next_review_date > ?", Date.today)
+      .where('next_review_date > ?', Time.zone.today)
       .joins(:card)
       .where(cards: { deck_id: deck_ids })
       .minimum(:next_review_date)
+  end
+
+  private
+
+  def fetch_due_cards(deck_ids = @user.decks.pluck(:id))
+    return [] if deck_ids.empty?
+
+    CardSchedule
+      .due_today
+      .joins(:card)
+      .where(cards: { deck_id: deck_ids })
+      .includes(card: :deck)
+      .order(:next_review_date)
+      .limit(MAX_CARDS)
+      .map(&:card)
   end
 end

@@ -3,7 +3,7 @@
 class User < ApplicationRecord
   has_secure_password
 
-  has_many :decks,         dependent: :destroy
+  has_many :decks, dependent: :destroy
   has_many :study_sessions, dependent: :destroy
 
   validates :username,
