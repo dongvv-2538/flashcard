@@ -168,15 +168,15 @@ learned (interval > 1 day) card counts, updating after each session.
 
 > Write these tests FIRST; ensure they FAIL before implementation
 
-- [ ] T059 [P] [US4] Write service spec for `DeckStatsService` (correct counts: total, new, due, learned) in `spec/services/deck_stats_service_spec.rb`
-- [ ] T060 [P] [US4] Write system spec for deck stats panel display and post-session update in `spec/system/stats_spec.rb`
+- [X] T059 [P] [US4] Write service spec for `DeckStatsService` (correct counts: total, new, due, learned) in `spec/services/deck_stats_service_spec.rb`
+- [X] T060 [P] [US4] Write system spec for deck stats panel display and post-session update in `spec/system/stats_spec.rb`
 
 ### Implementation for User Story 4
 
-- [ ] T061 [US4] Implement `DeckStatsService`: given a deck and current user, return `{ total:, new:, due_today:, learned: }` using `CardSchedule` scopes in `app/services/deck_stats_service.rb`
-- [ ] T062 [US4] Add `stats` action to `DecksController` (or embed in `show`) that calls `DeckStatsService` and exposes `@stats` to the view in `app/controllers/decks_controller.rb`
-- [ ] T063 [US4] Create deck stats partial with Bootstrap stat cards (total/new/due/learned) rendered inside `app/views/decks/show.html.erb` (embed `app/views/decks/_stats.html.erb`)
-- [ ] T064 [US4] Ensure `decks#show` re-fetches stats after a completed study session redirects back (no stale cache) in `app/controllers/study_sessions_controller.rb`
+- [X] T061 [US4] Implement `DeckStatsService`: given a deck and current user, return `{ total:, new:, due_today:, learned: }` using `CardSchedule` scopes in `app/services/deck_stats_service.rb`
+- [X] T062 [US4] Add `stats` action to `DecksController` (or embed in `show`) that calls `DeckStatsService` and exposes `@stats` to the view in `app/controllers/decks_controller.rb`
+- [X] T063 [US4] Create deck stats partial with Bootstrap stat cards (total/new/due/learned) rendered inside `app/views/decks/show.html.erb` (embed `app/views/decks/_stats.html.erb`)
+- [X] T064 [US4] Ensure `decks#show` re-fetches stats after a completed study session redirects back (no stale cache) in `app/controllers/study_sessions_controller.rb`
 
 **Checkpoint**: User Story 4 fully functional — deck stats panel updates correctly after sessions.
 

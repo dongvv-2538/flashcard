@@ -11,6 +11,8 @@ class DecksController < ApplicationController
 
   def show
     @cards = @deck.cards.order(:created_at)
+    # T062 — Load stats via DeckStatsService (always fresh, no stale cache)
+    @stats = DeckStatsService.new(deck: @deck, user: current_user).call
   end
 
   def new
