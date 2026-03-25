@@ -19,8 +19,8 @@ Rails.application.routes.draw do
   resources :reviews, only: %i[index create]
 
   # Health check
-  get "up" => "rails/health#show", as: :rails_health_check
+  get 'up' => 'rails/health#show', as: :rails_health_check
 
   # Root → login page
-  root "sessions#new"
+  root 'sessions#new'
 end
