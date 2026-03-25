@@ -116,7 +116,6 @@ GEM
     drb (2.2.3)
     erb (4.0.4)
       cgi (>= 0.3.3)
-    error_highlight (0.7.0)
     erubi (1.13.1)
     factory_bot (6.5.6)
       activesupport (>= 6.1.0)
@@ -329,9 +328,6 @@ GEM
       rubocop (~> 1.81)
     ruby-progressbar (1.13.0)
     rubyzip (3.2.2)
-    sass-embedded (1.98.0)
-      google-protobuf (~> 4.31)
-      rake (>= 13)
     sass-embedded (1.98.0-aarch64-linux-gnu)
       google-protobuf (~> 4.31)
     sass-embedded (1.98.0-aarch64-linux-musl)
@@ -423,7 +419,6 @@ DEPENDENCIES
   capybara (~> 3.40)
   dartsass-sprockets
   debug
-  error_highlight (>= 0.4.0)
   factory_bot_rails (~> 6.4)
   importmap-rails
   jbuilder
