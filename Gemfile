@@ -54,6 +54,9 @@ group :development, :test do
   gem "rubocop", "~> 1.65", require: false
   gem "rubocop-rails", "~> 2.25", require: false
   gem "rubocop-rspec", "~> 3.1", require: false
+
+  # Security scanning — used by CI scan_ruby job
+  gem "brakeman", require: false
 end
 
 group :development do
