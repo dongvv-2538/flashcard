@@ -332,6 +332,22 @@ GEM
     sass-embedded (1.98.0)
       google-protobuf (~> 4.31)
       rake (>= 13)
+    sass-embedded (1.98.0-aarch64-linux-gnu)
+      google-protobuf (~> 4.31)
+    sass-embedded (1.98.0-aarch64-linux-musl)
+      google-protobuf (~> 4.31)
+    sass-embedded (1.98.0-arm-linux-gnueabihf)
+      google-protobuf (~> 4.31)
+    sass-embedded (1.98.0-arm-linux-musleabihf)
+      google-protobuf (~> 4.31)
+    sass-embedded (1.98.0-arm64-darwin)
+      google-protobuf (~> 4.31)
+    sass-embedded (1.98.0-x86_64-darwin)
+      google-protobuf (~> 4.31)
+    sass-embedded (1.98.0-x86_64-linux-gnu)
+      google-protobuf (~> 4.31)
+    sass-embedded (1.98.0-x86_64-linux-musl)
+      google-protobuf (~> 4.31)
     sassc-embedded (1.80.8)
       sass-embedded (~> 1.80)
     securerandom (0.4.1)
@@ -396,6 +412,7 @@ PLATFORMS
   arm-linux-musl
   arm64-darwin
   x86_64-darwin
+  x86_64-linux
   x86_64-linux-gnu
   x86_64-linux-musl
 
@@ -429,7 +446,7 @@ DEPENDENCIES
   webdrivers
 
 RUBY VERSION
-   ruby 3.1.1p18
+   ruby 3.3.8p144
 
 BUNDLED WITH
    2.6.3
