@@ -5,7 +5,7 @@ source "https://rubygems.org"
 ruby "~> 3.1"
 
 # Core framework
-gem "rails", "~> 7.2.3"
+gem "rails", "~> 8.1.3"
 
 # Asset pipeline
 gem "sprockets-rails"
