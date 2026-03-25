@@ -51,7 +51,7 @@ group :development, :test do
   gem "simplecov", require: false
 
   # Code quality — Constitution Principle I
-  gem "rubocop", "~> 1.65", require: false
+  gem "rubocop", "~> 1.86", require: false
   gem "rubocop-rails", "~> 2.25", require: false
   gem "rubocop-rspec", "~> 3.1", require: false
 end
