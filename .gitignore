@@ -36,3 +36,4 @@
 coverage/
 tmp/
 log/*.log
+config/database.yml
