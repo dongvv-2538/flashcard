@@ -193,6 +193,12 @@ learned (interval > 1 day) card counts, updating after each session.
 - [X] T069 Audit all flash messages and error messages across controllers for human-readable, actionable wording (Constitution Principle III) in `app/controllers/`
 - [X] T070 [P] Manual quickstart smoke test: register → create deck → add 5 cards → run session → check review queue next day (use `travel_to` in test or manually advance date)
 
+## Phase 8: Maintainence
+
+**Purpose**: Fix bugs, improvement
+
+- [X] T071 [P] Fix logout button raising `No route matches [GET] "/session"`: update logout link in `app/views/layouts/application.html.erb` to issue a `DELETE` request via `button_to` or `data: { turbo_method: :delete }`; verify `spec/system/authentication_spec.rb` logout flow passes
+
 ---
 
 ## Dependencies & Execution Order
@@ -267,5 +273,5 @@ Task T030: spec/factories/decks.rb + cards.rb
 | Phase 4: Practice Session | T031–T045 | 6 | US2 (P2) |
 | Phase 5: SR Scheduling | T046–T058 | 5 | US3 (P3) |
 | Phase 6: Progress Stats | T059–T064 | 2 | US4 (P4) |
-| Phase 7: Polish | T065–T070 | 4 | — |
-| **Total** | **70 tasks** | **33 [P]** | |
+| Phase 7: Polish | T065–T071 | 5 | — |
+| **Total** | **71 tasks** | **34 [P]** | |
