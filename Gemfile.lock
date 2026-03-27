@@ -86,6 +86,8 @@ GEM
       msgpack (~> 1.2)
     bootstrap (5.3.8)
       popper_js (>= 2.11.8, < 3)
+    brakeman (8.0.4)
+      racc
     builder (3.3.0)
     capybara (3.40.0)
       addressable
@@ -116,7 +118,6 @@ GEM
     drb (2.2.3)
     erb (4.0.4)
       cgi (>= 0.3.3)
-    error_highlight (0.7.0)
     erubi (1.13.1)
     factory_bot (6.5.6)
       activesupport (>= 6.1.0)
@@ -329,9 +330,22 @@ GEM
       rubocop (~> 1.81)
     ruby-progressbar (1.13.0)
     rubyzip (3.2.2)
-    sass-embedded (1.98.0)
+    sass-embedded (1.98.0-aarch64-linux-gnu)
       google-protobuf (~> 4.31)
-      rake (>= 13)
+    sass-embedded (1.98.0-aarch64-linux-musl)
+      google-protobuf (~> 4.31)
+    sass-embedded (1.98.0-arm-linux-gnueabihf)
+      google-protobuf (~> 4.31)
+    sass-embedded (1.98.0-arm-linux-musleabihf)
+      google-protobuf (~> 4.31)
+    sass-embedded (1.98.0-arm64-darwin)
+      google-protobuf (~> 4.31)
+    sass-embedded (1.98.0-x86_64-darwin)
+      google-protobuf (~> 4.31)
+    sass-embedded (1.98.0-x86_64-linux-gnu)
+      google-protobuf (~> 4.31)
+    sass-embedded (1.98.0-x86_64-linux-musl)
+      google-protobuf (~> 4.31)
     sassc-embedded (1.80.8)
       sass-embedded (~> 1.80)
     securerandom (0.4.1)
@@ -396,6 +410,7 @@ PLATFORMS
   arm-linux-musl
   arm64-darwin
   x86_64-darwin
+  x86_64-linux
   x86_64-linux-gnu
   x86_64-linux-musl
 
@@ -403,10 +418,10 @@ DEPENDENCIES
   bcrypt (~> 3.1)
   bootsnap
   bootstrap (~> 5.3)
+  brakeman
   capybara (~> 3.40)
   dartsass-sprockets
   debug
-  error_highlight (>= 0.4.0)
   factory_bot_rails (~> 6.4)
   importmap-rails
   jbuilder
@@ -429,7 +444,7 @@ DEPENDENCIES
   webdrivers
 
 RUBY VERSION
-   ruby 3.1.1p18
+   ruby 3.3.8p144
 
 BUNDLED WITH
    2.6.3

@@ -2,7 +2,7 @@
 
 source "https://rubygems.org"
 
-ruby "~> 3.1"
+ruby "~> 3.3"
 
 # Core framework
 gem "rails", "~> 7.2.3"
@@ -54,11 +54,13 @@ group :development, :test do
   gem "rubocop", "~> 1.65", require: false
   gem "rubocop-rails", "~> 2.25", require: false
   gem "rubocop-rspec", "~> 3.1", require: false
+
+  # Security scanning — used by CI scan_ruby job
+  gem "brakeman", require: false
 end
 
 group :development do
   gem "web-console"
-  gem "error_highlight", ">= 0.4.0", platforms: [:ruby]
 end
 
 group :test do
