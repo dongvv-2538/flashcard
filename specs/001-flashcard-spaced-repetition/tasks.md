@@ -195,6 +195,12 @@ learned (interval > 1 day) card counts, updating after each session.
 - [X] T071 [P] Fix logout button raising `No route matches [GET] "/session"`: update logout link in `app/views/layouts/application.html.erb` to issue a `DELETE` request via `button_to`; update `spec/system/authentication_spec.rb` to use `click_button`
 - [ ] T072 [P] Fix CI failure: upgrade Ruby `3.1.1` → `3.3.8` in `.ruby-version` and `Gemfile`; run `bundle lock --add-platform x86_64-linux` to add missing CI platform to `Gemfile.lock`; resolves nokogiri RubyGems incompatibility and x86_64-linux platform warning
 
+## Phase 8: Maintainence
+
+**Purpose**: Fix bugs, improvement
+
+- [X] T071 [P] Fix logout button raising `No route matches [GET] "/session"`: update logout link in `app/views/layouts/application.html.erb` to issue a `DELETE` request via `button_to` or `data: { turbo_method: :delete }`; verify `spec/system/authentication_spec.rb` logout flow passes
+
 ---
 
 ## Dependencies & Execution Order

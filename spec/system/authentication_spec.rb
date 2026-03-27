@@ -75,7 +75,7 @@ RSpec.describe 'Authentication', type: :system do
       fill_in 'Password', with: 'secret123'
       click_button 'Log in'
 
-      click_link 'Log out'
+      click_button 'Log out'
 
       expect(page).to have_link('Log in')
     end
