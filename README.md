@@ -36,53 +36,53 @@ A dedicated **Review Queue** dashboard surfaces every card that is due (or overd
 
 ### 2.1 Login Page
 
-[insert image]
+![Register Page](storage/images/login.jpg)
 
 URL: `GET /` → redirects to `GET /session/new`
 
 ### 2.2 Register Page
 
-[insert image]
+![Register Page](storage/images/register.jpg)
 
 URL: `GET /users/new`
 
 ### 2.3 My Decks (Dashboard)
 
-[insert image]
+![Register Page](storage/images/dashboard.jpg)
 
 URL: `GET /decks`
 
 ### 2.4 Deck Detail with Stats
 
-[insert image]
+![Register Page](storage/images/deck_detail.jpg)
 
 URL: `GET /decks/:id`
 
 ### 2.5 Study Session — Front of Card
 
-[insert image]
+![Register Page](storage/images/front_card.jpg)
 
 URL: `GET /decks/:deck_id/study_sessions/:id`
 
 ### 2.6 Study Session — Answer Revealed + Rating
 
-[insert image]
+![Register Page](storage/images/back_card.jpg)
 
 ### 2.7 Session Summary
 
-[insert image]
+![Register Page](storage/images/session_summary.jpg)
 
 URL: `GET /decks/:deck_id/study_sessions/:id/summary`
 
 ### 2.8 Review Queue
 
-[insert image]
+![Register Page](storage/images/review_queue.jpg)
 
 URL: `GET /reviews`
 
 ### 2.9 No Cards Due State
 
-[insert image]
+![Register Page](storage/images/all_complete.jpg)
 
 ---
 
