@@ -165,16 +165,16 @@ RSpec.describe 'Study Sessions', type: :system do
 
       # Each rating section is a .text-center div containing the badge count
       # and the label text directly below it.
-      within all('.text-center').find { |n| n.text.include?('Good') } do
+      within(all('.text-center').find { |n| n.text.include?('Good') }) do
         expect(page).to have_content('1')
       end
-      within all('.text-center').find { |n| n.text.include?('Easy') } do
+      within(all('.text-center').find { |n| n.text.include?('Easy') }) do
         expect(page).to have_content('1')
       end
-      within all('.text-center').find { |n| n.text.include?('Hard') } do
+      within(all('.text-center').find { |n| n.text.include?('Hard') }) do
         expect(page).to have_content('1')
       end
-      within all('.text-center').find { |n| n.text.include?('Again') } do
+      within(all('.text-center').find { |n| n.text.include?('Again') }) do
         expect(page).to have_content('0')
       end
     end
