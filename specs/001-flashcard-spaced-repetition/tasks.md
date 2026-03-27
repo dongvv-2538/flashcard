@@ -200,6 +200,7 @@ learned (interval > 1 day) card counts, updating after each session.
 **Purpose**: Fix bugs, improvement
 
 - [X] T071 [P] Fix logout button raising `No route matches [GET] "/session"`: update logout link in `app/views/layouts/application.html.erb` to issue a `DELETE` request via `button_to` or `data: { turbo_method: :delete }`; verify `spec/system/authentication_spec.rb` logout flow passes
+- [ ] T073 [P] Fix session summary showing all rating counts as 0: Rails 7.2 `group(:enum_attr).count` already returns string enum labels as keys (e.g. `{"again"=>1, "good"=>2}`); the `transform_keys { |k| SessionRating.ratings.key(k) }` call was using `Hash#key` which searches by *value*, mapping every label to `nil` and collapsing all counts to 0 in `StudySessionsController#summary`; fix by removing the `transform_keys` call; add regression system spec in `spec/system/study_sessions_spec.rb` that asserts the actual badge counts are non-zero after a rated session
 
 ---
 

@@ -151,5 +151,32 @@ RSpec.describe 'Study Sessions', type: :system do
 
       expect(page).to have_link('Back to Deck')
     end
+
+    # Regression: rating breakdown badges were all showing 0 because
+    # transform_keys used Hash#key(label) which searches by value (always nil
+    # when values are integers) — fixed by removing the transform entirely.
+    it 'shows correct non-zero counts in the rating breakdown badges' do
+      start_session
+      rate('Good')  # card1
+      rate('Easy')  # card2
+      rate('Hard')  # card3
+
+      expect(page).to have_content('Session Complete')
+
+      # Each rating section is a .text-center div containing the badge count
+      # and the label text directly below it.
+      within all('.text-center').find { |n| n.text.include?('Good') } do
+        expect(page).to have_content('1')
+      end
+      within all('.text-center').find { |n| n.text.include?('Easy') } do
+        expect(page).to have_content('1')
+      end
+      within all('.text-center').find { |n| n.text.include?('Hard') } do
+        expect(page).to have_content('1')
+      end
+      within all('.text-center').find { |n| n.text.include?('Again') } do
+        expect(page).to have_content('0')
+      end
+    end
   end
 end

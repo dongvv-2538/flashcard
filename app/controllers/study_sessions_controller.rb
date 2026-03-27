@@ -90,11 +90,14 @@ class StudySessionsController < ApplicationController
 
   # GET /decks/:deck_id/study_sessions/:id/summary
   def summary
+    # In Rails 7.2+, group(:enum_attr).count returns string enum labels as keys
+    # (e.g. {"again"=>1, "good"=>2}).  No transform_keys needed; using one here
+    # caused Hash#key(label) to search by *value*, always returning nil and
+    # making every breakdown count render as 0.
     @ratings_breakdown = @study_session
                          .session_ratings
                          .group(:rating)
                          .count
-                         .transform_keys { |k| SessionRating.ratings.key(k) }
   end
 
   private
