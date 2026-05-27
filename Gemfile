@@ -52,7 +52,7 @@ group :development, :test do
 
   # Code quality — Constitution Principle I
   gem "rubocop", "~> 1.65", require: false
-  gem "rubocop-rails", "~> 2.25", require: false
+  gem "rubocop-rails", "~> 2.35", require: false
   gem "rubocop-rspec", "~> 3.1", require: false
 
   # Security scanning — used by CI scan_ruby job
